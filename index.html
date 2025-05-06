@@ -1046,9 +1046,9 @@
   <header>
     <nav id="main-nav">
       <a href="#" onclick="showPage('main', this)" class="active-category"><i class="fas fa-home"></i> Главная</a>
-      <a href="#" onclick="showPage('about', this)"><i class="fas fa-user"></i> Обо мне</a>
-      <a href="#" onclick="showPage('projects', this)"><i class="fas fa-code"></i> Проекты</a>
-      <a href="#" onclick="showPage('skills', this)"><i class="fas fa-cogs"></i> Навыки</a>
+      <a href="#" id="posetit" onclick="showPage('about', this)"> Обо мне</a>
+      <a href="#" id="nav-projects" onclick="showPage('projects', this)"> Проекты</a>
+      <a href="#" onclick="showPage('skills', this)"> Навыки</a>
       <a href="#" onclick="showPage('contact', this)"><i class="fas fa-envelope"></i> Контакты</a>
     </nav>
   </header>
@@ -1065,7 +1065,7 @@
         
         <div class="buttons-container">
           <a href="https://t.me/kxwswxtoh" target="_blank" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Связаться</a>
-          <a href="#" onclick="showPage('projects', document.querySelector('a[href=\"#projects\"]'))" class="btn btn-outline"><i class="fas fa-laptop-code"></i> Мои работы</a>
+          <a href="#" onclick="showPage('projects', document.getElementById('nav-projects'))" class="btn btn-outline"> Мои работы</a>
         </div>
       </div>
     </div>
@@ -1143,7 +1143,7 @@
               </div>
               <div class="project-links">
                 <a href="#" class="btn btn-sm" onclick="toggleModal('discord-modal')"><i class="fas fa-eye"></i> Подробнее</a>
-                <a href="#" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> Посетить</a> 	
+                <a href="#" class="btn btn-sm btn-outline",  document.getElementById('posetit')> Посетить</a> 	
               </div>
             </div>
           </div>
@@ -1181,7 +1181,7 @@
               </div>
               <div class="project-links">
                 <a href="#" onclick="showPage('about', document.querySelector('a[href=\"#about\"]'))" class="btn btn-sm"><i class="fas fa-eye"></i> Подробнее</a>
-                <a href="#" onclick="showPage('about', document.querySelector('a[href=\"#about\"]'))" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> Посетить</a>
+                <a href="#" onclick="showPage('about', document.getElementById('posetit'))" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> Посетить</a>
               </div>
             </div>
           </div>
