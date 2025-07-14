@@ -1592,26 +1592,18 @@ document.getElementById('feedback-form').addEventListener('submit', async functi
     </div>
   </div>
 
-  <!-- Переключатель темы -->
-  <div class="theme-switcher">
-    <div class="theme-btn" id="theme-btn" onclick="toggleTheme()">
-      <i class="fas fa-moon"></i>
-    </div>
-  </div>
+  <!-- Theme Switcher Button -->
+<button id="theme-toggle" title="Переключить тему">
+  <i class="fas fa-moon"></i>
+</button>
 
- <!-- Подвал -->
 <footer class="fade-in-up delay-4">
   <div class="container">
     <div class="social-links">
       <a href="https://github.com/kxwswxtoh" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
       <a href="https://t.me/kxwswxtoh" target="_blank" class="social-link"><i class="fab fa-telegram"></i></a>
       <a href="https://discord.com/users/1145015548099432548" target="_blank" class="social-link"><i class="fab fa-discord"></i></a>
-      <a 
-        href="https://mail.google.com/mail/?view=cm&fs=1&to=kxwswxtoh@gmail.com"
-        target="_blank" 
-        class="social-link" 
-        title="Написать на Gmail"
-      >
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kxwswxtoh@gmail.com" target="_blank" class="social-link" title="Написать на Gmail">
         <i class="fas fa-envelope"></i>
       </a>
     </div>
@@ -1619,6 +1611,22 @@ document.getElementById('feedback-form').addEventListener('submit', async functi
   </div>
 </footer>
 
+<script>
+const themeToggle = document.getElementById('theme-toggle');
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-theme');
+  document.body.classList.toggle('light-theme');
+  themeToggle.innerHTML = document.body.classList.contains('light-theme') 
+    ? '<i class="fas fa-sun"></i>' 
+    : '<i class="fas fa-moon"></i>';
+});
+window.addEventListener('DOMContentLoaded', () => {
+  if(!document.body.classList.contains('dark-theme')
+    && !document.body.classList.contains('light-theme')) {
+    document.body.classList.add('dark-theme');
+  }
+});
+</script>
   <script>
     // Translations
     const translations = {
