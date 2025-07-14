@@ -1342,24 +1342,66 @@
         <p data-translate="projects-subtitle">Здесь представлены некоторые из моих последних работ. Каждый проект - это уникальное решение с индивидуальным подходом.</p>
         
 <div class="projects-grid">
-          <div class="project-card fade-in-up delay-1">
-            <div class="project-image">
-              <img src="https://producedbysoon.com/cdn/shop/files/Screenshot_2025-01-27_at_2.39.22_PM.png?v=1738006774&width=2048" alt="Discord проект">
-            </div>
-            <div class="project-content">
-              <h3 class="project-title">Soon...</h3>
-              <p class="project-description">Soon...</p>
-              <div class="project-tags">
-                <span class="project-tag">Soon...</span>
-                <span class="project-tag">Soon...</span>
-                <span class="project-tag">Soon...</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="btn btn-sm" onclick="toggleModal('discord-modal')"><i class="fas fa-eye"></i> <span data-translate="details">Подробнее</span></a>
-                <a href="#" class="btn btn-sm btn-outline"><span data-translate="visit">Посетить</span></a>   
-              </div>
-            </div>
-          </div>
+  <div class="project-card fade-in-up delay-1">
+    <div class="project-image">
+      <img src="https://producedbysoon.com/cdn/shop/files/Screenshot_2025-01-27_at_2.39.22_PM.png?v=1738006774&width=2048" alt="Discord проект">
+    </div>
+    <div class="project-content">
+      <h3 class="project-title">Soon...</h3>
+      <p class="project-description">Soon...</p>
+      <div class="project-tags">
+        <span class="project-tag">Soon...</span>
+        <span class="project-tag">Soon...</span>
+        <span class="project-tag">Soon...</span>
+      </div>
+      <div class="project-links">
+        <a href="#" class="btn btn-sm" onclick="toggleModal('discord-modal')"><i class="fas fa-eye"></i> <span data-translate="details">Подробнее</span></a>
+        <a href="#" class="btn btn-sm btn-outline" onclick="openAbsentTab(event)"><span data-translate="visit">Посетить</span></a>   
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openAbsentTab(event) {
+  event.preventDefault();
+  const w = window.open('', '_blank');
+  if (w) {
+    w.document.write(`
+      <html>
+        <head>
+          <title>Отсутствует</title>
+          <style>
+            html, body {
+              height: 100%;
+              margin: 0;
+              padding: 0;
+            }
+            body {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              background: #fff;
+            }
+            .center-text {
+              font-size: 4vw;
+              color: #111;
+              font-family: sans-serif;
+              text-align: center;
+              width: 100vw;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="center-text">отсутствует.</div>
+        </body>
+      </html>
+    `);
+    w.document.close();
+  }
+}
+</script>
 
           
          <div class="project-card fade-in-up delay-2">
