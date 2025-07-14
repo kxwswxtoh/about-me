@@ -1479,32 +1479,55 @@
           </div>
         </div>
         
-        <div class="contact-form fade-in-up delay-3">
-          <h3 data-translate="contact-form-title">Форма обратной связи</h3>
-          <form id="feedback-form">
-            <div class="form-group">
-              <label for="name" class="form-label" data-translate="form-name">Ваше имя</label>
-              <input type="text" id="name" class="form-control" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" id="email" class="form-control" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="message" class="form-label" data-translate="form-message">Сообщение</label>
-              <textarea id="message" class="form-control" required></textarea>
-            </div>
-            
-            <div class="buttons-container">
-              <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> <span data-translate="form-send">Отправить</span></button>
-            </div>
-          </form>
-        </div>
-      </div>
+       <div class="contact-form fade-in-up delay-3">
+  <h3 data-translate="contact-form-title">Форма обратной связи</h3>
+  <form id="feedback-form" action="https://formspree.io/f/xvgqpjak" method="POST">
+    <div class="form-group">
+      <label for="name" class="form-label" data-translate="form-name">Ваше имя</label>
+      <input type="text" id="name" name="name" class="form-control" required>
     </div>
-  </div>
+    <div class="form-group">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" id="email" name="email" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="message" class="form-label" data-translate="form-message">Сообщение</label>
+      <textarea id="message" name="message" class="form-control" required></textarea>
+    </div>
+    <div class="buttons-container">
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-paper-plane"></i>
+        <span data-translate="form-send">Отправить</span>
+      </button>
+    </div>
+  </form>
+  <div id="form-status" style="margin-top:20px;color:#4a90e2;"></div>
+</div>
+<script>
+document.getElementById('feedback-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var form = e.target;
+  var status = document.getElementById('form-status');
+  status.textContent = "Отправка...";
+  var data = new FormData(form);
+  fetch(form.action, {
+    method: form.method,
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  }).then(response => {
+    if (response.ok) {
+      form.reset();
+      status.textContent = "Сообщение успешно отправлено!";
+    } else {
+      response.json().then(data => {
+        status.textContent = data.errors ? data.errors.map(x => x.message).join(", ") : "Ошибка отправки";
+      });
+    }
+  }).catch(error => {
+    status.textContent = "Ошибка отправки";
+  });
+});
+</script>
 
   <!-- Модальные окна -->
   <div id="discord-modal" class="modal">
