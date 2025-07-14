@@ -1341,28 +1341,7 @@
         <h2 data-translate="projects-title">Мои проекты</h2>
         <p data-translate="projects-subtitle">Здесь представлены некоторые из моих последних работ. Каждый проект - это уникальное решение с индивидуальным подходом.</p>
         
-   <style>
-.projects-grid {
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-  justify-content: center;
-  flex-wrap: nowrap;
-}
-.project-card {
-  min-width: 340px;
-  max-width: 350px;
-  flex: 1 1 340px;
-}
-.project-image img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-</style>
-
 <div class="projects-grid">
-  <!-- Карточка 1: Soon... -->
   <div class="project-card fade-in-up delay-1">
     <div class="project-image">
       <img src="https://producedbysoon.com/cdn/shop/files/Screenshot_2025-01-27_at_2.39.22_PM.png?v=1738006774&width=2048" alt="Discord проект">
@@ -1376,64 +1355,12 @@
         <span class="project-tag">Soon...</span>
       </div>
       <div class="project-links">
-        <a href="javascript:void(0);" class="btn btn-sm" onclick="openNotFoundTab()">
+        <a href="#" class="btn btn-sm" onclick="toggleModal('discord-modal')">
           <i class="fas fa-eye"></i> <span data-translate="details">Подробнее</span>
         </a>
         <a href="javascript:void(0);" class="btn btn-sm btn-outline" onclick="openSoonTab()">
-          <i class="fas fa-external-link-alt"></i> <span data-translate="visit">Посетить</span>
+          <span data-translate="visit">Посетить</span>
         </a>
-      </div>
-    </div>
-  </div>
-  <!-- Карточка 2: Rozdum -->
-  <div class="project-card fade-in-up delay-2">
-    <div class="project-image">
-      <img src="photo_2025-07-14_21-45-45.jpg?format=webp&quality=lossless" alt="ROZDUM">
-    </div>
-    <div class="project-content">
-      <div class="project-title">ROZDUM</div>
-      <div class="project-description">
-        <span>Стандарт фриланса в Telegram</span>
-      </div>
-      <div class="project-tags">
-        <span class="project-tag">Python</span>
-      </div>
-      <div class="project-links">
-        <a href="javascript:void(0);" class="btn btn-sm" onclick="openNotFoundTab()">
-          <i class="fas fa-eye"></i> <span data-translate="details">Подробнее</span>
-        </a>
-        <a href="https://t.me/RozdumBot" target="_blank" class="btn btn-sm btn-outline">
-          <i class="fas fa-external-link-alt"></i> <span data-translate="visit">Посетить</span>
-        </a>
-      </div>
-    </div>
-  </div>
-  <!-- Карточка 3: Портфолио -->
-  <div class="project-card fade-in-up delay-3">
-    <div class="project-image">
-      <img src="IMG_2650.jpg" alt="Портфолио">
-    </div>
-    <div class="project-content">
-      <h3 class="project-title" data-translate="project2-title">Портфолио</h3>
-      <p class="project-description" data-translate="project2-desc">Интерактивное портфолио с анимациями и современным дизайном (этот сайт).</p>
-      <div class="project-tags">
-        <span class="project-tag">HTML5</span>
-        <span class="project-tag">CSS3</span>
-        <span class="project-tag">JavaScript</span>
-      </div>
-      <div class="project-links">
-        <a href="javascript:void(0);" class="btn btn-sm" onclick="openNotFoundTab()">
-          <i class="fas fa-eye"></i> <span data-translate="details">Подробнее</span>
-        </a>
-        <!-- Здесь меняем на переход в категорию "Обо мне" -->
-        <a href="#about" class="btn btn-sm btn-outline">
-          <i class="fas fa-external-link-alt"></i> <span data-translate="visit">Посетить</span>
-        </a>
-        <!-- Если у вас SPA с функцией showPage, можно так:
-        <a href="javascript:void(0);" class="btn btn-sm btn-outline" onclick="showPage('about')">
-          <i class="fas fa-external-link-alt"></i> <span data-translate="visit">Посетить</span>
-        </a>
-        -->
       </div>
     </div>
   </div>
@@ -1469,40 +1396,50 @@
       popup.document.close();
     }
   }
-
-  function openNotFoundTab() {
-    const popup = window.open('', '_blank');
-    if (popup) {
-      popup.document.write(`
-        <html>
-        <head>
-          <title>ОТСУТСТВУЕТ</title>
-          <style>
-            body {
-              background: #0b0c10;
-              color: #ff4444;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 100vh;
-              margin: 0;
-              font-family: 'Segoe UI', 'Roboto', sans-serif;
-              font-size: 3rem;
-              text-transform: uppercase;
-              letter-spacing: .15em;
-            }
-          </style>
-        </head>
-        <body>
-          ОТСУТСТВУЕТ
-        </body>
-        </html>
-      `);
-      popup.document.close();
-    }
-  }
 </script>
-
+          
+         <div class="project-card fade-in-up delay-2">
+  <div class="project-image">
+    <img src="photo_2025-07-14_21-45-45.jpg?format=webp&quality=lossless" alt="ROZDUM">
+  </div>
+  <div class="project-content">
+    <div class="project-title">ROZDUM</div>
+    <div class="project-description">
+      <!-- Было: Стандарт для фрилансингу в Telegram -->
+      <span>Стандарт фриланса в Telegram</span>
+    </div>
+    <div class="project-tags">
+      <span class="project-tag">Python</span>
+    </div>
+    <div class="project-links">
+      <a href="#" class="btn btn-sm" onclick="toggleModal('shop-modal')"><i class="fas fa-eye"></i> <span data-translate="details">Подробнее</span></a>
+      <a href="https://t.me/RozdumBot" target="_blank" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> <span data-translate="visit">Посетить</span></a>
+    </div>
+  </div>
+</div>
+          
+          <div class="project-card fade-in-up delay-3">
+            <div class="project-image">
+              <img src="IMG_2650.jpg" alt="Портфолио">
+            </div>
+            <div class="project-content">
+              <h3 class="project-title" data-translate="project2-title">Портфолио</h3>
+              <p class="project-description" data-translate="project2-desc">Интерактивное портфолио с анимациями и современным дизайном (этот сайт).</p>
+              <div class="project-tags">
+                <span class="project-tag">HTML5</span>
+                <span class="project-tag">CSS3</span>
+                <span class="project-tag">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a href="#" onclick="showPage('about', document.querySelector('a[href=\"#about\"]'))" class="btn btn-sm"><i class="fas fa-eye"></i> <span data-translate="details">Подробнее</span></a>
+                <a href="#" onclick="showPage('about', document.getElementById('posetit'))" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> <span data-translate="visit">Посетить</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Навыки -->
   <div id="skills" class="page">
     <div class="container">
