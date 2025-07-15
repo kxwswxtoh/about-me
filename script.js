@@ -968,7 +968,7 @@ const playlist = [
   {
     src: '2hug - Сны.mp3',
     title: '2hug - Сны',
-    cover: 'attached_assets/artworks-QAQobczQy9MccKsr-52EW7w-t500x500_1752537268446.jfif'
+    cover: 'attached_assets/artworks-QAQobczQy9MccKsr-52EW7w-t500x500_1752537268446.jpeg'
   },
   {
     src: 'Zhanulka Наколки.mp3',
