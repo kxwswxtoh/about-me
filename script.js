@@ -989,6 +989,21 @@ const playlist = [
     src: 'Whole Lotta Swag Разница.mp3',
     title: 'Whole Lotta Swag - Разница',
     cover: 'maxresdefault.jpg'
+  },
+  {
+    src: '2hug - В этой комнате.mp3',
+    title: '2hug - В этой комнате',
+    cover: 'artworks-WL9FBht1VQQ7hOPy-6cmpOA-t500x500.jpg'
+  },
+  {
+    src: 'KRISTIEE - Dirty.mp3',
+    title: 'KRISTIEE - Dirty',
+    cover: 'KristieeDirty.jfif'
+  },
+  {
+    src: 'GONE.Fludd - Boys Don\'t Cry.mp3',
+    title: 'GONE.Fludd - Boys Don\'t Cry',
+    cover: 'gone-fludd-boys-don-t-cry.jpg'
   }
 ];
 
