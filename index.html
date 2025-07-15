@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kxwswxtoh | Портфолио разработчика</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4a90e2;
+      --secondary-color: #6e48aa;
+      --dark-bg: #0b0c10;
+      --darker-bg: #07090d;
+      --text-color: #ffffff;
+      --text-secondary: #b8c2d9;
+      --accent-color: #00d4ff;
+      --card-bg: rgba(17, 17, 17, 0.85);
+      --transition-speed: 0.4s;
+    }
+
+    /* Language Selector Styles */
+    .language-selector-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 12, 16, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .language-selector-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .language-selector-container {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 40px;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translateY(20px);
+      transition: transform 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .language-selector-overlay.active .language-selector-container {
+      transform: translateY(0);
+    }
+
+    .language-selector-container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+      z-index: -1;
+      border-radius: 22px;
+      opacity: 0.3;
+    }
+
+    .language-title {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .language-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      margin: 15px auto 0;
+      border-radius: 3px;
+    }
+
+    .language-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .language-option {
+      background: rgba(74, 144, 226, 0.1);
+      border: 1px solid rgba(74, 144, 226, 0.2);
+      border-radius: 15px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all var(--transition-speed) ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .language-option:hover {
+      background: rgba(74, 144, 226, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(74, 144, 226, 0.2);
+      border-color: var(--primary-color);
+    }
+
+    .language-flag {
+      width: 60px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .language-name {
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .language-selector-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 1000;
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all var(--transition-speed) ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .language-selector-btn:hover {
+      background: rgba(74, 144, 226, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .language-selector-btn i {
+      color: var(--primary-color);
+    }
+
+    .language-current {
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    /* Остальные стили остаются без изменений */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      width: 100%;
+      min-height: 100vh;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-color);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Видео фон */
+    .video-bg-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -4;
+      opacity: 0.7;
+      overflow: hidden;
+    }
+
+    .video-bg-container iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: none;
+    }
+
+    /* Партиклы и градиентный фон */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: 0.3;
+    }
+
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(11, 12, 16, 0.8) 0%, rgba(7, 9, 13, 0.8) 50%, rgba(26, 26, 46, 0.8) 100%);
+      z-index: -3;
+    }
+
+    /* Аудио плеер */
+    .audio-player {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1001;
+      background: rgba(17, 17, 17, 0.8);
+      backdrop-filter: blur(15px);
+      border-radius: 30px;
+      padding: 12px 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      width: auto;
+      min-width: 450px;
+      max-width: 700px;
+      cursor: move;
+      user-select: none;
+      height: 70px;
+      display: flex;
+      align-items: center;
+    }
+
+    .audio-player.dragging {
+      cursor: grabbing;
+      transform: none;
+    }
+
+    .audio-player-header {
+      display: none;
+    }
+
+    .drag-handle {
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: move;
+      margin-right: 10px;
+    }
+
+    .album-cover {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      margin-right: 15px;
+    }
+
+    .album-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .album-cover:hover img {
+      transform: scale(1.05);
+    }
+
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .play-pause-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .play-pause-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    }
+
+    .track-btn {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: rgba(74, 144, 226, 0.1);
+      border: 1px solid rgba(74, 144, 226, 0.2);
+      color: var(--text-color);
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .track-btn:hover {
+      background: rgba(74, 144, 226, 0.2);
+      transform: scale(1.05);
+      border-color: var(--primary-color);
+    }
+
+    .audio-info {
+      flex: 1;
+      min-width: 0;
+      margin-right: 10px;
+    }
+
+    .track-name {
+      color: var(--text-color);
+      font-weight: 500;
+      font-size: 16px;
+      margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-progress {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .time-display {
+      color: var(--text-secondary);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .volume-control i {
+      color: var(--text-secondary);
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .volume-slider {
+      width: 80px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .volume-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+
+    /* Шапка и навигация */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(11, 12, 16, 0.95);
+      padding: 15px 0;
+      display: flex;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 16px;
+      padding: 12px 25px;
+      border-radius: 30px;
+      transition: all var(--transition-speed) ease;
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(74, 144, 226, 0.2), transparent);
+      transition: all 0.6s ease;
+    }
+
+    nav a:hover::before {
+      left: 100%;
+    }
+
+    nav a:hover {
+      color: var(--text-color);
+      transform: translateY(-2px);
+    }
+
+    nav a.active-category {
+      background: rgba(74, 144, 226, 0.15);
+      color: var(--text-color);
+      box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+      transform: translateY(-2px);
+    }
+
+    nav a i {
+      font-size: 14px;
+    }
+
+    /* Основное содержимое */
+    .page {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 120px 20px 60px;
+      min-height: 100vh;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .page.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Карточки контента */
+    .content-box {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      background-color: rgba(17, 17, 17, 0.7);
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(15px);
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .content-box::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+      z-index: -1;
+      border-radius: 22px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .content-box:hover::before {
+      opacity: 0.3;
+    }
+
+    .content-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Аватар */
+    .photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      margin: 0 auto 30px;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .photo:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 35px rgba(74, 144, 226, 0.4);
+      border-color: var(--primary-color);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .photo:hover img {
+      transform: scale(1.1);
+    }
+
+    .photo::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(74, 144, 226, 0.3) 0%, rgba(110, 72, 170, 0.3) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .photo:hover::after {
+      opacity: 1;
+    }
+
+    /* Заголовки */
+    h1, h2, h3, h4 {
+      margin-bottom: 20px;
+      font-weight: 600;
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 3px;
+    }
+
+    p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    /* Кнопки */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(74, 144, 226, 0.1);
+      border: 1px solid rgba(74, 144, 226, 0.3);
+      color: var(--text-color);
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-speed) ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(74, 144, 226, 0.3), transparent);
+      transition: all 0.6s ease;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      background: rgba(74, 144, 226, 0.2);
+      border-color: var(--primary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(74, 144, 226, 0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      border: none;
+      box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+      box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--primary-color);
+    }
+
+    .btn-sm {
+      padding: 8px 20px;
+      font-size: 14px;
+    }
+
+    .btn-lg {
+      padding: 15px 35px;
+      font-size: 18px;
+    }
+
+    /* Контейнеры кнопок */
+    .buttons-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    /* Список навыков */
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .skill-item {
+      background: rgba(74, 144, 226, 0.1);
+      border: 1px solid rgba(74, 144, 226, 0.2);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 14px;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .skill-item:hover {
+      background: rgba(74, 144, 226, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(74, 144, 226, 0.1);
+    }
+
+    .skill-item i {
+      color: var(--primary-color);
+    }
+
+    /* Список проектов */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all var(--transition-speed) ease;
+      position: relative;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      border-color: rgba(74, 144, 226, 0.3);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.1);
+    }
+
+    .project-content {
+      padding: 25px;
+    }
+
+    .project-title {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: var(--text-color);
+    }
+
+    .project-description {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .project-tag {
+      background: rgba(74, 144, 226, 0.1);
+      color: var(--primary-color);
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* Обо мне */
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .about-list {
+      text-align: left;
+      list-style-type: none;
+      padding: 0;
+      margin: 30px 0;
+      width: 100%;
+    }
+
+    .about-list li {
+      margin-bottom: 20px;
+      position: relative;
+      padding-left: 35px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .about-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 20px;
+      height: 20px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .about-list li:nth-child(1)::before {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234a90e2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>');
+    }
+
+    .about-list li:nth-child(2)::before {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234a90e2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>');
+    }
+
+    .about-list li:nth-child(3)::before {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234a90e2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>');
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 40px auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -1px;
+    }
+
+    .timeline-item {
+      padding: 20px 40px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+
+    .timeline-content {
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+      transform: translateX(20px);
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+      transform: translateX(-20px);
+    }
+
+    .timeline-date {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timeline-title {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--text-color);
+    }
+
+    .timeline-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      top: 30px;
+      z-index: 1;
+      box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.2);
+    }
+
+    .timeline-item:nth-child(odd)::after {
+      right: -10px;
+    }
+
+    .timeline-item:nth-child(even)::after {
+      left: -10px;
+    }
+
+    /* Контакты */
+    .contact-methods {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 40px;
+      width: 100%;
+    }
+
+    .contact-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all var(--transition-speed) ease;
+      flex: 1;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(74, 144, 226, 0.3);
+    }
+
+    .contact-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    .contact-title {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .contact-info {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    /* Форма обратной связи */
+    .contact-form {
+      max-width: 600px;
+      margin: 40px auto 0;
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: var(--text-color);
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      background: rgba(74, 144, 226, 0.05);
+      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    /* Модальные окна */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 12, 16, 0.9);
+      z-index: 2000;
+      overflow-y: auto;
+      backdrop-filter: blur(5px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal.active {
+      opacity: 1;
+```text
+
+    }
+
+    .modal-content {
+      position: relative;
+      background: var(--card-bg);
+      margin: 80px auto;
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 800px;
+      width: 90%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .modal-title {
+      font-size: 1.8rem;
+      color: var(--text-color);
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-modal:hover {
+      color: var(--text-color);
+    }
+
+    .modal-body {
+      margin-bottom: 30px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+    }
+
+    /* Подвал */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(11, 12, 16, 0.95);
+      color: var(--text-secondary);
+      font-size: 14px;
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      margin-top: 60px;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 25px;
+    }
+
+    .social-link {
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+      padding: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(74, 144, 226, 0.2), transparent);
+      transition: all 0.6s ease;
+    }
+
+    .social-link:hover::before {
+      left: 100%;
+    }
+
+    .social-link:hover {
+      color: var(--primary-color);
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 10px 20px rgba(74, 144, 226, 0.3);
+      border-color: var(--primary-color);
+      background: rgba(74, 144, 226, 0.1);
+    }
+
+    .copyright {
+      font-size: 13px;
+      opacity: 0.8;
+      font-weight: 500;
+    }
+
+    body.light-theme footer, 
+    body.light-theme .dynamic-footer {
+      background: rgba(245, 247, 250, 0.95);
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-theme .social-link {
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-theme .social-link:hover {
+      background: rgba(74, 144, 226, 0.1);
+      border-color: var(--primary-color);
+      box-shadow: 0 10px 20px rgba(74, 144, 226, 0.2);
+    }
+
+    /* Анимации */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.1s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.3s;
+    }
+
+    .delay-4 {
+      animation-delay: 0.4s;
+    }
+
+    .delay-5 {
+      animation-delay: 0.5s;
+    }
+
+    /* Прогресс бар */
+    .progress-container {
+      width: 100%;
+      margin: 40px 0;
+    }
+
+    .progress-title {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      color: var(--text-color);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 4px;
+      transition: width 1.5s ease;
+    }
+
+    /* Переключатель темы */
+    .theme-switcher {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+    }
+
+    .theme-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .theme-btn i {
+      font-size: 1.2rem;
+      color: var(--text-color);
+    }
+
+    /* Светлая тема */
+    body.light-theme {
+      --dark-bg: #f5f7fa;
+      --darker-bg: #e1e5ee;
+      --text-color: #2d3748;
+      --text-secondary: #4a5568;
+      --card-bg: rgba(255, 255, 255, 0.9);
+    }
+
+    body.light-theme .content-box {
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(15px);
+    }
+
+    body.light-theme .audio-player {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(15px);
+    }
+
+    body.light-theme .gradient-bg {
+      background: linear-gradient(135deg, rgba(245, 247, 250, 0.8) 0%, rgba(225, 229, 238, 0.8) 50%, rgba(255, 255, 255, 0.8) 100%);
+    }
+
+    body.light-theme .theme-btn {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-theme .theme-btn:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    body.light-theme .particles {
+      opacity: 0.1;
+    }
+
+    body.light-theme header {
+      background: rgba(245, 247, 250, 0.9);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(15px);
+    }
+
+
+
+    /* Адаптивность */
+    @media (max-width: 992px) {
+      .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+
+      .timeline::before {
+        left: 30px;
+      }
+
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 0;
+      }
+
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        transform: none;
+      }
+
+      .timeline-item::after {
+        left: 20px;
+      }
+
+      .timeline-item:nth-child(even)::after {
+        left: 20px;
+      }
+
+      .contact-methods {
+        flex-direction: column;
+      }
+
+      .language-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        gap: 8px;
+      }
+
+      nav a {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      .content-box {
+        padding: 30px;
+      }
+
+      .project-image {
+        height: 180px;
+      }
+
+      .language-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .audio-control {
+        top: 10px;
+        left: 10px;
+        width: 35px;
+        height: 35px;
+        padding: 8px;
+      }
+
+      .audio-control:hover {
+        padding: 8px 12px;
+      }
+
+      .audio-icon {
+        width: 18px;
+        height: 18px;
+      }
+
+      .volume-slider {
+        width: 60px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav a {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+
+      .content-box {
+        padding: 25px 20px;
+      }
+
+      .page {
+        padding: 100px 15px 40px;
+      }
+
+      .photo {
+        width: 150px;
+        height: 150px;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        padding: 30px 20px;
+      }
+
+      .theme-switcher {
+        bottom: 20px;
+        right: 20px;
+      }
+
+        .theme-btn {
+        width: 45px;
+        height: 45px;
+      }
+
+      .language-selector-container {
+        padding: 30px 20px;
+      }
+
+      .language-selector-btn {
+        bottom: 20px;
+        left: 20px;
+        padding: 8px 15px;
+        font-size: 14px;
+      }
+
+      footer {
+        padding: 30px 15px;
+        margin-top: 40px;
+      }
+
+      .social-links {
+        gap: 15px;
+      }
+
+      .social-link {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+
+      .copyright {
+        font-size: 12px;
+      }
+
+      .audio-player {
+        min-width: 350px;
+        max-width: 95%;
+        padding: 8px 20px;
+        bottom: 15px;
+        height: 60px;
+      }
+
+      .album-cover {
+        width: 40px;
+        height: 40px;
+      }
+
+      .play-pause-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+      }
+
+      .track-name {
+        font-size: 13px;
+      }
+
+      .time-display {
+        font-size: 11px;
+      }
+
+      .volume-slider {
+        width: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Language Selector Overlay -->
+  <div class="language-selector-overlay active" id="languageSelector">
+    <div class="language-selector-container">
+      <h2 class="language-title">Выберите язык / Select Language</h2>
+      <div class="language-grid">
+        <div class="language-option" onclick="setLanguage('ru')">
+          <img src="https://flagcdn.com/w40/ru.png" alt="Russian Flag" class="language-flag">
+          <span class="language-name">Русский</span>
+        </div>
+        <div class="language-option" onclick="setLanguage('uk')">
+          <img src="https://flagcdn.com/w40/ua.png" alt="Ukrainian Flag" class="language-flag">
+          <span class="language-name">Українська</span>
+        </div>
+        <div class="language-option" onclick="setLanguage('en')">
+          <img src="https://flagcdn.com/w40/gb.png" alt="English Flag" class="language-flag">
+          <span class="language-name">English</span>
+        </div>
+        <div class="language-option" onclick="setLanguage('pl')">
+          <img src="https://flagcdn.com/w40/pl.png" alt="Polish Flag" class="language-flag">
+          <span class="language-name">Polski</span>
+        </div>
+        <div class="language-option" onclick="setLanguage('fr')">
+          <img src="https://flagcdn.com/w40/fr.png" alt="French Flag" class="language-flag">
+          <span class="language-name">Français</span>
+        </div>
+        <div class="language-option" onclick="setLanguage('de')">
+          <img src="https://flagcdn.com/w40/de.png" alt="German Flag" class="language-flag">
+          <span class="language-name">Deutsch</span>
+        </div>
+        <div class="language-option" onclick="setLanguage('it')">
+          <img src="https://flagcdn.com/w40/it.png" alt="Italian Flag" class="language-flag">
+          <span class="language-name">Italiano</span>
+        </div>
+        <div class="language-option" onclick="setLanguage('be')">
+          <img src="https://flagcdn.com/w40/by.png" alt="Belarusian Flag" class="language-flag">
+          <span class="language-name">Беларуская</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Language Selector Button -->
+  <div class="language-selector-btn" id="languageSelectorBtn" onclick="toggleLanguageSelector()">
+    <i class="fas fa-globe"></i>
+    <span class="language-current">Русский</span>
+  </div>
+
+  <!-- Видео фон -->
+  <div class="video-bg-container">
+    <iframe src="https://gifer.com/embed/n4V" width="100%" height="100%" style='position:absolute;top:0;left:0;border:none;' allowFullScreen></iframe>
+  </div>
+
+  <!-- Градиентный фон -->
+  <div class="gradient-bg"></div>
+
+  <!-- Партиклы -->
+  <canvas class="particles"></canvas>
+
+  <!-- Аудио элемент -->
+  <audio id="backgroundAudio" preload="auto" loop>
+    <source src="2hug - Сны.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио элемент.
+  </audio>
+
+  <!-- Аудио плеер -->
+  <div class="audio-player" id="audioPlayer">
+    <div class="audio-controls" id="dragHandle">
+      <div class="drag-handle">
+        <i class="fas fa-grip-vertical"></i>
+      </div>
+      <div class="album-cover">
+        <img src="attached_assets/artworks-QAQobczQy9MccKsr-52EW7w-t500x500_1752537268446.jfif" alt="2hug - Сны" id="albumCover">
+      </div>
+      <button class="track-btn" id="shuffleBtn" onclick="toggleShuffle()" title="Случайный порядок (включен)" style="color: #4a90e2;">
+        <i class="fas fa-random"></i>
+      </button>
+      <button class="track-btn" id="prevBtn" onclick="prevTrack()" title="Предыдущий трек">
+        <i class="fas fa-step-backward"></i>
+      </button>
+      <button class="play-pause-btn" id="playPauseBtn">
+        <i class="fas fa-play" id="playPauseIcon"></i>
+      </button>
+      <button class="track-btn" id="nextBtn" onclick="nextTrack()" title="Следующий трек">
+        <i class="fas fa-step-forward"></i>
+      </button>
+      <div class="audio-info">
+        <div class="track-name">2hug - Сны</div>
+        <div class="track-progress">
+          <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="time-display">
+            <span id="currentTime">0:00</span> / <span id="totalTime">0:00</span>
+          </div>
+        </div>
+      </div>
+      <div class="volume-control">
+        <i class="fas fa-volume-up" id="volumeIcon"></i>
+        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+      </div>
+    </div>
+  </div>
+
+  <!-- Шапка -->
+  <header>
+    <nav id="main-nav">
+      <a href="#" onclick="showPage('main', this)" class="active-category"><i class="fas fa-home"></i> <span data-translate="nav-home">Главная</span></a>
+      <a href="#" id="posetit" onclick="showPage('about', this)"><span data-translate="nav-about">Обо мне</span></a>
+      <a href="#" id="nav-projects" onclick="showPage('projects', this)"><span data-translate="nav-projects">Проекты</span></a>
+      <a href="#" onclick="showPage('skills', this)"><span data-translate="nav-skills">Навыки</span></a>
+      <a href="#" onclick="showPage('contact', this)"><i class="fas fa-envelope"></i> <span data-translate="nav-contact">Контакты</span></a>
+    </nav>
+  </header>
+
+  <!-- Главная страница -->
+  <div id="main" class="page active">
+    <div class="container">
+      <div class="content-box fade-in-up">
+        <div class="photo">
+          <img src="IMG_2650.jpg" alt="Мое фото">
+        </div>
+        <h1>kxwswxtoh</h1>
+        <p data-translate="main-subtitle">Веб-разработчик | Создаю современные и интерактивные веб-приложения</p>
+
+        <div class="buttons-container">
+          <a href="https://t.me/kxwswxtoh" target="_blank" class="btn btn-primary"><i class="fas fa-paper-plane"></i> <span data-translate="main-contact">Связаться</span></a>
+          <a href="#" onclick="showPage('projects', document.getElementById('nav-projects'))" class="btn btn-outline"><span data-translate="main-projects">Мои работы</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Обо мне -->
+  <div id="about" class="page">
+    <div class="container">
+      <div class="content-box fade-in-up">
+        <h2 data-translate="about-title">Обо мне</h2>
+        <div class="about-content">
+          <div class="photo">
+            <img src="IMG_2650.jpg" alt="Мое фото">
+          </div>
+          <p data-translate="about-intro">Привет! Я профессиональный веб-разработчик с фокусом на создании современных, интуитивно понятных и минималистичных интерфейсов.</p>
+
+          <ul class="about-list">
+            <li data-translate="about-exp1">Имею более 3 лет опыта в веб-разработке, создаю адаптивные и кросс-браузерные веб-приложения.</li>
+            <li data-translate="about-exp2">Моя работа охватывает полный цикл разработки — от проектирования архитектуры до финальной реализации и тестирования.</li>
+            <li data-translate="about-exp3">Открыт к сотрудничеству и новым вызовам. Если вам нужен ответственный и креативный разработчик — буду рад обсудить ваш проект.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-box fade-in-up delay-1">
+        <h2 data-translate="experience-title">Опыт работы</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date"><i class="fas fa-calendar-alt"></i> 2025 - <span data-translate="present">Настоящее время</span></div>
+              <h3 class="timeline-title" data-translate="job1-title">Фриланс разработчик</h3>
+              <p class="timeline-description" data-translate="job1-desc">Разработка веб-приложений и сайтов для клиентов по всему миру. Специализация на React, Node.js и современных фреймворках.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date"><i class="fas fa-calendar-alt"></i> 2023 - 2024</div>
+              <h3 class="timeline-title" data-translate="job2-title">Веб-разработчик в Digital Agency</h3>
+              <p class="timeline-description" data-translate="job2-desc">Разработка и поддержка клиентских проектов, работа в команде над крупными корпоративными сайтами.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date"><i class="fas fa-calendar-alt"></i> 2022 - 2023</div>
+              <h3 class="timeline-title" data-translate="job3-title">Junior Frontend Developer</h3>
+              <p class="timeline-description" data-translate="job3-desc">Начало карьеры в веб-разработке, изучение основных технологий и участие в коммерческих проектах.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Проекты -->
+  <div id="projects" class="page">
+    <div class="container">
+      <div class="content-box fade-in-up">
+        <h2 data-translate="projects-title">Мои проекты</h2>
+        <p data-translate="projects-subtitle">Здесь представлены некоторые из моих последних работ. Каждый проект - это уникальное решение с индивидуальным подходом.</p>
+
+<div class="projects-grid">
+          <div class="project-card fade-in-up delay-1">
+            <div class="project-image">
+              <img src="https://producedbysoon.com/cdn/shop/files/Screenshot_2025-01-27_at_2.39.22_PM.png?v=1738006774&width=2048" alt="Discord проект">
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Soon...</h3>
+              <p class="project-description">Soon...</p>
+              <div class="project-tags">
+                <span class="project-tag">Soon...</span>
+                <span class="project-tag">Soon...</span>
+                <span class="project-tag">Soon...</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn btn-sm" onclick="toggleModal('discord-modal')"><i class="fas fa-eye"></i> <span data-translate="details">Подробнее</span></a>
+                <a href="#" class="btn btn-sm btn-outline"><span data-translate="visit">Посетить</span></a>   
+              </div>
+            </div>
+          </div>
+
+
+         <div class="project-card fade-in-up delay-2">
+  <div class="project-image">
+    <img src="photo_2025-07-14_21-45-45.jpg?format=webp&quality=lossless" alt="ROZDUM">
+  </div>
+  <div class="project-content">
+    <div class="project-title">ROZDUM</div>
+    <div class="project-description">
+      <!-- Было: Стандарт для фрилансингу в Telegram -->
+      <span>Стандарт фриланса в Telegram</span>
+    </div>
+    <div class="project-tags">
+      <span class="project-tag">Python</span>
+    </div>
+    <div class="project-links">
+      <a href="#" class="btn btn-sm" onclick="toggleModal('shop-modal')"><i class="fas fa-eye"></i> <span data-translate="details">Подробнее</span></a>
+      <a href="https://t.me/RozdumBot" target="_blank" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> <span data-translate="visit">Посетить</span></a>
+    </div>
+  </div>
+</div>
+
+          <div class="project-card fade-in-up delay-3">
+            <div class="project-image">
+              <img src="IMG_2650.jpg" alt="Портфолио">
+            </div>
+            <div class="project-content">
+              <h3 class="project-title" data-translate="project2-title">Портфолио</h3>
+              <p class="project-description" data-translate="project2-desc">Интерактивное портфолио с анимациями и современным дизайном (этот сайт).</p>
+              <div class="project-tags">
+                <span class="project-tag">HTML5</span>
+                <span class="project-tag">CSS3</span>
+                <span class="project-tag">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a href="#" onclick="showPage('about', document.querySelector('a[href=\"#about\"]'))" class="btn btn-sm"><i class="fas fa-eye"></i> <span data-translate="details">Подробнее</span></a>
+                <a href="#" onclick="showPage('about', document.getElementById('posetit'))" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> <span data-translate="visit">Посетить</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Навыки -->
+  <div id="skills" class="page">
+    <div class="container">
+      <div class="content-box fade-in-up">
+        <h2 data-translate="skills-title">Мои навыки</h2>
+        <p data-translate="skills-subtitle">Технологии и инструменты, которые я использую в своей работе</p>
+
+        <div class="skills-container">
+          <div class="skill-item fade-in-up delay-1"><i class="fab fa-html5"></i> HTML5</div>
+          <div class="skill-item fade-in-up delay-2"><i class="fab fa-css3-alt"></i> CSS3</div>
+          <div class="skill-item fade-in-up delay-3"><i class="fab fa-js"></i> JavaScript</div>
+          <div class="skill-item fade-in-up delay-1"><i class="fab fa-react"></i> React</div>
+          <div class="skill-item fade-in-up delay-2"><i class="fab fa-node-js"></i> Node.js</div>
+          <div class="skill-item fade-in-up delay-3"><i class="fas fa-database"></i> MongoDB</div>
+          <div class="skill-item fade-in-up delay-1"><i class="fab fa-git"></i> Git</div>
+          <div class="skill-item fade-in-up delay-2"><i class="fab fa-sass"></i> Sass</div>
+          <div class="skill-item fade-in-up delay-3"><i class="fab fa-figma"></i> Figma</div>
+        </div>
+
+        <div class="progress-container fade-in-up delay-4">
+          <div class="progress-title">
+            <span data-translate="frontend">Frontend разработка</span>
+            <span>95%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 95%"></div>
+          </div>
+        </div>
+
+        <div class="progress-container fade-in-up delay-5">
+          <div class="progress-title">
+            <span data-translate="backend">Backend разработка</span>
+            <span>80%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 80%"></div>
+          </div>
+        </div>
+
+        <div class="progress-container fade-in-up delay-1">
+          <div class="progress-title">
+            <span>UI/UX дизайн</span>
+            <span>75%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 75%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Контакты -->
+  <div id="contact" class="page">
+    <div class="container">
+      <div class="content-box fade-in-up">
+        <h2 data-translate="contact-title">Свяжитесь со мной</h2>
+        <p data-translate="contact-subtitle">Готов обсудить ваш проект или ответить на любые вопросы</p>
+
+        <div class="contact-methods">
+          <div class="contact-card fade-in-up delay-1">
+            <div class="contact-icon"><i class="fab fa-telegram"></i></div>
+            <h3 class="contact-title">Telegram</h3>
+            <p class="contact-info">@kxwswxtoh</p>
+            <a href="https://t.me/kxwswxtoh" target="_blank" class="btn btn-sm"><i class="fab fa-telegram"></i> <span data-translate="write">Написать</span></a>
+          </div>
+
+          <div class="contact-card fade-in-up delay-2">
+            <div class="contact-icon"><i class="fab fa-discord"></i></div>
+            <h3 class="contact-title">Discord</h3>
+            <p class="contact-info">kxwswxtoh#1234</p>
+            <a href="https://discord.com/users/1145015548099432548" target="_blank" class="btn btn-sm"><i class="fab fa-discord"></i> <span data-translate="write">Написать</span></a>
+          </div>
+
+          <div class="contact-card fade-in-up delay-3">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <h3 class="contact-title">Gmail</h3>
+            <p class="contact-info">kxwswxtoh@gmail.com</p>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kxwswxtoh@gmail.com" target="_blank" class="btn btn-sm"><i class="fas fa-envelope"></i> <span data-translate="write">Написать</span></a>
+          </div>
+        </div>
+
+       <div class="contact-form fade-in-up delay-3">
+  <h3 data-translate="contact-form-title">Форма обратной связи</h3>
+  <form id="feedback-form" action="https://formspree.io/f/xvgqpjak" method="POST">
+    <div class="form-group">
+      <label for="name" class="form-label" data-translate="form-name">Ваше имя</label>
+      <input type="text" id="name" name="name" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" id="email" name="email" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="message" class="form-label" data-translate="form-message">Сообщение</label>
+      <textarea id="message" name="message" class="form-control" required></textarea>
+    </div>
+    <div class="buttons-container">
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-paper-plane"></i>
+        <span data-translate="form-send">Отправить</span>
+      </button>
+    </div>
+  </form>
+  <div id="form-status" style="margin-top:20px;color:#4a90e2;"></div>
+</div>
+<script>
+document.getElementById('feedback-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var form = e.target;
+  var status = document.getElementById('form-status');
+  status.textContent = "Отправка...";
+  var data = new FormData(form);
+  fetch(form.action, {
+    method: form.method,
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  }).then(response => {
+    if (response.ok) {
+      form.reset();
+      status.textContent = "Сообщение успешно отправлено!";
+    } else {
+      response.json().then(data => {
+        status.textContent = data.errors ? data.errors.map(x => x.message).join(", ") : "Ошибка отправки";
+      });
+    }
+  }).catch(error => {
+    status.textContent = "Ошибка отправки";
+  });
+});
+</script>
+
+  <!-- Модальные окна -->
+  <div id="discord-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Discord бот</h3>
+        <button class="close-modal" onclick="toggleModal('discord-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img src="https://via.placeholder.com/800x500/1a1a2e/4a90e2?text=Discord+Bot" alt="Discord бот" style="width:100%; border-radius:10px; margin-bottom:20px;">
+        <p data-translate="modal1-desc">Многофункциональный Discord бот с современной системой модерации, экономикой, игровыми механиками и развлекательными функциями.</p>
+        <h4 data-translate="features">Особенности:</h4>
+        <ul class="about-list">
+          <li data-translate="modal1-feature1">Система модерации с логированием и автоматическими наказаниями</li>
+          <li data-translate="modal1-feature2">Экономическая система с магазином и аукционами</li>
+          <li data-translate="modal1-feature3">Мини-игры и развлекательные команды</li>
+          <li data-translate="modal1-feature4">Интеграция с внешними API (Twitch, YouTube)</li>
+          <li data-translate="modal1-feature5">Панель управления через веб-интерфейс</li>
+        </ul>
+        <div class="project-tags" style="justify-content:center; margin:20px 0;">
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">Discord.js</span>
+          <span class="project-tag">MongoDB</span>
+          <span class="project-tag">Express</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="https://discord.gg/YhAFVh4jTX" target="_blank" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> <span data-translate="visit-server">Посетить сервер</span></a>
+        <button class="btn btn-outline" onclick="toggleModal('discord-modal')" data-translate="close">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="shop-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">What Shop</h3>
+        <button class="close-modal" onclick="toggleModal('shop-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img src="img_2651.jpg" alt="What Shop" style="width:100%; border-radius:10px; margin-bottom:20px;">
+        <p data-translate="modal2-desc">Современный интернет-магазин с адаптивным дизайном, системой управления контентом и интеграцией платежных систем.</p>
+        <h4 data-translate="features">Особенности:</h4>
+        <ul class="about-list">
+          <li data-translate="modal2-feature1">Адаптивный дизайн для всех устройств</li>
+          <li data-translate="modal2-feature2">Система управления товарами и категориями</li>
+          <li data-translate="modal2-feature3">Корзина и оформление заказа</li>
+          <li data-translate="modal2-feature4">Интеграция с Stripe для обработки платежей</li>
+          <li data-translate="modal2-feature5">Личный кабинет пользователя</li>
+        </ul>
+        <div class="project-tags" style="justify-content:center; margin:20px 0;">
+          <span class="project-tag">React</span>
+          <span class="project-tag">Redux</span>
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">Stripe API</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary"><i class="fas fa-external-link-alt"></i> <span data-translate="visit-site">Посетить сайт</span></button>
+        <button class="btn btn-outline" onclick="toggleModal('shop-modal')" data-translate="close">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+        
+
+  <!-- Theme Switcher Button -->
+  <div class="theme-switcher">
+    <button class="theme-btn" id="theme-toggle" title="Переключить тему">
+      <i class="fas fa-moon"></i>
+    </button>
+  </div>
+
+
+
+
+  <script src="script.js"></script>
+</body>
+</html>
